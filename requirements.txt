@@ -1,0 +1,30 @@
+# OAKI Project — Python依赖包
+# 数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.11.0
+
+# 机器学习
+scikit-learn>=1.3.0
+xgboost>=1.7.0
+
+# 可视化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# Jupyter
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# 不确定性分析
+SALib>=1.4.7        # 灵敏度分析（Sobol/Morris）
+
+# 优化
+scipy>=1.11.0       # 参数率定
+optuna>=3.3.0       # 贝叶斯超参数优化
+
+# 工具
+pyyaml>=6.0
+python-dotenv>=1.0.0
+tqdm>=4.65.0
