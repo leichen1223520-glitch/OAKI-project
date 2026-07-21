@@ -1,0 +1,62 @@
+[
+  {
+    "month": "2025.10",
+    "water_vol_wan_m3": 20105.93,
+    "elec_wan_kwh": 7077.207171999999,
+    "Scope1_tCO2": 27555.9,
+    "Scope2_tCO2": 41323.8,
+    "Scope3_tCO2": 31700.0,
+    "Total_tCO2": 100579.7,
+    "unit_kgCO2_m3": 0.5098
+  },
+  {
+    "month": "2025.11",
+    "water_vol_wan_m3": 17505.89,
+    "elec_wan_kwh": 6930.28476,
+    "Scope1_tCO2": 23190.8,
+    "Scope2_tCO2": 40465.9,
+    "Scope3_tCO2": 31360.8,
+    "Total_tCO2": 95017.6,
+    "unit_kgCO2_m3": 0.5353
+  },
+  {
+    "month": "2025.12",
+    "water_vol_wan_m3": 17670.66,
+    "elec_wan_kwh": 7221.4101120000005,
+    "Scope1_tCO2": 21014.0,
+    "Scope2_tCO2": 42165.8,
+    "Scope3_tCO2": 30315.4,
+    "Total_tCO2": 93495.2,
+    "unit_kgCO2_m3": 0.5392
+  },
+  {
+    "month": "2026.01",
+    "water_vol_wan_m3": 17181.59,
+    "elec_wan_kwh": 7193.867402,
+    "Scope1_tCO2": 19877.1,
+    "Scope2_tCO2": 42005.0,
+    "Scope3_tCO2": 31918.6,
+    "Total_tCO2": 93800.7,
+    "unit_kgCO2_m3": 0.5564
+  },
+  {
+    "month": "2026.02",
+    "water_vol_wan_m3": 12534.88,
+    "elec_wan_kwh": 5639.403,
+    "Scope1_tCO2": 15843.7,
+    "Scope2_tCO2": 32928.5,
+    "Scope3_tCO2": 25333.3,
+    "Total_tCO2": 74105.5,
+    "unit_kgCO2_m3": 0.5442
+  },
+  {
+    "month": "2026.03",
+    "water_vol_wan_m3": 18301.28,
+    "elec_wan_kwh": 7312.354240000001,
+    "Scope1_tCO2": 22077.5,
+    "Scope2_tCO2": 42696.8,
+    "Scope3_tCO2": 30042.7,
+    "Total_tCO2": 94817.0,
+    "unit_kgCO2_m3": 0.528
+  }
+]

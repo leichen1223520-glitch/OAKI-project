@@ -1,0 +1,86 @@
+[
+  {
+    "name": "布吉三期",
+    "design_scale_wan": 10.0,
+    "Q_in_m3d": 31969.945355191256,
+    "unit_elec_kWh_m3": 0.978,
+    "E_total_CO2eq_t": 11343.023942193304,
+    "E_unit_kgCO2_m3": 0.9720622784477498,
+    "E_Scope1_pct": 12.834911789934525,
+    "E_Scope2_pct": 57.94191917676621,
+    "E_Scope3_pct": 29.223169033299257,
+    "level": 3
+  },
+  {
+    "name": "东涌",
+    "design_scale_wan": 0.3,
+    "Q_in_m3d": 592.3497267759562,
+    "unit_elec_kWh_m3": 0.971,
+    "E_total_CO2eq_t": 220.38357579913065,
+    "E_unit_kgCO2_m3": 1.0193144207461182,
+    "E_Scope1_pct": 23.615500928883495,
+    "E_Scope2_pct": 54.860425669997156,
+    "E_Scope3_pct": 21.524073401119352,
+    "level": 3
+  },
+  {
+    "name": "罗芳",
+    "design_scale_wan": 40.0,
+    "Q_in_m3d": 224541.5300546448,
+    "unit_elec_kWh_m3": 0.759,
+    "E_total_CO2eq_t": 63362.736496047764,
+    "E_unit_kgCO2_m3": 0.7731155047491196,
+    "E_Scope1_pct": 16.137735592624395,
+    "E_Scope2_pct": 56.538659106037684,
+    "E_Scope3_pct": 27.323605301337917,
+    "level": 3
+  },
+  {
+    "name": "滨河",
+    "design_scale_wan": 30.0,
+    "Q_in_m3d": 228844.26229508198,
+    "unit_elec_kWh_m3": 0.694,
+    "E_total_CO2eq_t": 48688.80309747292,
+    "E_unit_kgCO2_m3": 0.582902886666928,
+    "E_Scope1_pct": 21.40379449746772,
+    "E_Scope2_pct": 68.56640442635293,
+    "E_Scope3_pct": 10.029801076179341,
+    "level": 3
+  },
+  {
+    "name": "埔地吓三期",
+    "design_scale_wan": 5.0,
+    "Q_in_m3d": 20454.64480874317,
+    "unit_elec_kWh_m3": 0.656,
+    "E_total_CO2eq_t": 5090.399366698198,
+    "E_unit_kgCO2_m3": 0.6818157814614484,
+    "E_Scope1_pct": 18.298687031645198,
+    "E_Scope2_pct": 55.40958553648531,
+    "E_Scope3_pct": 26.291727431869504,
+    "level": 3
+  },
+  {
+    "name": "洪湖",
+    "design_scale_wan": 5.0,
+    "Q_in_m3d": 38774.31693989071,
+    "unit_elec_kWh_m3": 0.636,
+    "E_total_CO2eq_t": 14634.103172464069,
+    "E_unit_kgCO2_m3": 1.0340203648557074,
+    "E_Scope1_pct": 23.279638842812712,
+    "E_Scope2_pct": 35.42224927881264,
+    "E_Scope3_pct": 41.29811187837465,
+    "level": 3
+  },
+  {
+    "name": "沙井三期",
+    "design_scale_wan": 20.0,
+    "Q_in_m3d": 36687.43169398907,
+    "unit_elec_kWh_m3": 0.603,
+    "E_total_CO2eq_t": 9804.24297097592,
+    "E_unit_kgCO2_m3": 0.7321564472148732,
+    "E_Scope1_pct": 17.040529583068867,
+    "E_Scope2_pct": 47.430918261856256,
+    "E_Scope3_pct": 35.52855215507487,
+    "level": 3
+  }
+]
