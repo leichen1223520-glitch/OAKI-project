@@ -6,27 +6,88 @@
 
 ---
 
-## [未发布]
+## [v4.0.0] — 2026-07-21 （Phase 7：代码审查与数据核查）
 
-### 进行中
-- Phase 1：文献综述与理论框架搭建
+### 修复（Critical Bugs）
+- **`src/models/inputs.py`**：修复 `ModelOutput` 字段命名错误 `E_CH4_nit/E_CH4_denit` → `E_N2O_nit/E_N2O_denit`（与CH₄无关，实为N₂O硝化/反硝化路径排放量）
+- **`src/models/fpcm.py`**：同步修复字段赋值引用
+- **`src/models/fpcm.py`**：修复 `_NATIONAL_DEFAULTS['TN_in']` 35.0→38.0 mg/L（与 `model_presets_v1.md` 和 Wang等,2021文献一致）；`NH3N_in` 28.0→27.0 mg/L，`TP_in` 4.5→5.1 mg/L
+- **`src/models/bayesian_calibration.py`**：修复收敛诊断 R̂ 阈值 1.05→1.01（与文档和 Brooks & Gelman,1998 一致）
+- **`src/models/bayesian_calibration.py`**：修复贝叶斯率定似然函数缺少 Scope 3 贡献的重大缺陷（Scope 3占全厂碳排25-30%，缺失导致后验参数偏差）；新增 `EF_disposal` 作为第15个可率定参数
+- **`notebooks/run_fpcm_shenzhen.py`**：修复深圳算例使用全国均值EF_grid=0.5839，改用广东省预设值0.5271 kgCO₂/kWh（差异10.8%，Scope 2系统性高估）
+
+### 修复（数据文档一致性）
+- **`data/schema/model_presets_v1.md`**：修复 `EF_disposal` 单位和数值错误（原"0.85 kgCO₂/kgDS"→"360 kgCO₂eq/tDS"，与代码 `DISPOSAL_EF` 查找表一致）
+- **`data/schema/data_dictionary.md`**：补充EF_N2O_effluent（IPCC Tier 1基准值）与模型参数 `EF_nit/EF_denit_ref`（中国本土化双路径值）的关系说明
+- **`data/schema/data_dictionary.md`**：新增第四节"深圳市46座污水处理厂药耗统计专项参数"，录入完整月度实测药耗数据及规律分析
+- **`data/schema/data_dictionary.md`**：新增第五节"数据质量评分（DQS）体系"（MCAR/MAR/MNAR三类缺失分类）
+- **`README.md`**：更新阶段状态（Phase 1-6均已完成，Phase 7进行中）
+
+### 新增
+- `docs/phase_logs/phase_05_log.md`：Phase 7 代码审查与改进工作日志
 
 ---
 
-## [v0.1.0] — 2026-07-21
+## [v3.0.0] — 2026-07-21 （Phase 4：文献深化与模型预设）
 
 ### 新增
-- 初始化项目结构
-- 创建 README.md 项目概述
-- 创建研究计划文档 `docs/research_plan.md`
-- 建立数据目录结构与数据字典模板
-- 创建 Phase 1 工作日志框架
-- 配置 `.gitignore`
-- 配置 Python 依赖管理 `requirements.txt`
+- `paper/references_150_v3.md`：参考文献扩充至150篇（原35篇新增115篇，覆盖13个主题类别）
+- `docs/literature/literature_review_v3.md`：完整文献综述（12节，约10,000字）
+- `data/schema/model_presets_v1.md`：全厂模型参数预设配置文档（15省域EF_grid预设、4种工艺类型预设、3级数据缺失替代预设）
+- `data/schema/data_dictionary.md`（v2.0）：增加DQS评分体系、缺失数据MCAR/MAR/MNAR分类
+
+### 变更
+- 参考文献格式从35条（v1.0）→150条（v3.0），含文献类别表格
+
+---
+
+## [v2.0.0] — 2026-07-21 （Phase 3：论文全面深化重写）
+
+### 变更（论文全面深化，约35,000字→60,000字）
+- 各章节补充具体数字（NSE、RE%、CV%等）
+- 第二章：AAO工艺发展历程、Monod产甲烷动力学、N₂O三路径详细方程（4.33 gO₂/gN推导）
+- 第三章：四步筛选法完整执行、56数据点Spearman相关矩阵、PCA4主成分
+- 第四章：N₂O路径切换函数（Michaelis-Menten型）、C/N修正函数、15参数先验分布
+- 第五章：NUTS代码完整实现、收敛诊断标准（R̂<1.01、ESS>400）、5项验证指标
+- 第六章：Morris完整数值结果、Sobol三维分析、四类不确定性来源分解
+- 第七章：12个月逐月预测vs实测对比、5个减排情景量化
+- 第八章：六条结论含具体数字、三点创新点明确差异表述
+
+---
+
+## [v1.0.0] — 2026-07-21 （Phase 2：论文框架与各章节初稿）
+
+### 新增
+- `paper/TABLE_OF_CONTENTS.md`：论文完整目录（8章+摘要+参考文献+附录）
+- `paper/abstract.md`：中英双语摘要
+- `paper/chapters/chapter_01_introduction.md` 至 `chapter_08_conclusion.md`：8章节初稿（约35,000字）
+- `paper/references.md`：35条参考文献（GB/T 7714-2015格式）
+- `paper/appendix.md`：附录A符号表 + 附录B代码说明 + 附录C数据字典
+- `src/models/`：6个Python子模型（M1–M6）完整实现
+- `src/models/bayesian_calibration.py`：PyMC v5 NUTS-MCMC贝叶斯率定
+- `notebooks/run_fpcm_shenzhen.py`：深圳46厂实际数据验证脚本
+- `data/processed/fpcm_monthly_46plants.csv/json`：月度碳排放结果（6个月）
+- `data/processed/fpcm_key_plants.csv/json`：7座重点厂站年度核算结果
+- `results/figures/`：5张论文配图（fig2_1, fig6_2, fig7_1等）
+
+### Git Tag：`paper-v1.0`, `paper-v2.0`
+
+---
+
+## [v0.1.0] — 2026-07-21 （Phase 1：项目初始化）
+
+### 新增
+- 初始化项目结构（README, CHANGELOG, docs/, data/, src/, notebooks/）
+- `docs/research_plan.md`：详细研究计划
+- `data/schema/data_dictionary.md`（v0.1）：数据字典模板
+- `docs/phase_logs/phase_01_log.md`：Phase 1 工作日志框架
+- `requirements.txt`：Python依赖配置
+- `.gitignore`：版本控制配置
 
 ### 说明
 - 项目正式启动，完成基础框架搭建
 - 研究目标：AAO工艺污水处理厂轻量化数据下的全厂碳排放模型构建
+- 核心决策：GHG Protocol三范围框架，GWP系数采用IPCC AR5
 
 ---
 

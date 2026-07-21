@@ -41,11 +41,11 @@ _UNCERTAINTY = {1: 52, 2: 22, 3: 15, 4: 10}
 
 # 全国均值替代参数（Level 1 使用）
 _NATIONAL_DEFAULTS = {
-    "COD_in": 280.0,     # mg/L
-    "TN_in": 35.0,
-    "NH3N_in": 28.0,
+    "COD_in": 280.0,     # mg/L（Liu等,2022全国均值）
+    "TN_in": 38.0,       # mg/L（Wang等,2021；与model_presets_v1全国均值一致）
+    "NH3N_in": 27.0,     # mg/L（Wang等,2021全国均值）
     "NH3N_out": 5.0,
-    "TP_in": 4.5,
+    "TP_in": 5.1,        # mg/L（Wang等,2021全国均值）
     "COD_out": 40.0,
     "TN_out": 12.0,
     "T_water": 18.0,
@@ -164,8 +164,8 @@ class FPCM:
 
         out.E_CH4_kg = e_ch4_kg
         out.E_N2O_kg = e_n2o_kg
-        out.E_CH4_nit = self.M2.calculate_nit(inp)
-        out.E_CH4_denit = self.M2.calculate_denit(inp)
+        out.E_N2O_nit = self.M2.calculate_nit(inp)
+        out.E_N2O_denit = self.M2.calculate_denit(inp)
         out.E_Scope1_CO2eq = (
             e_ch4_kg * self.params.GWP_CH4
             + e_n2o_kg * self.params.GWP_N2O

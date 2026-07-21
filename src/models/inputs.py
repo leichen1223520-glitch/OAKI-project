@@ -62,8 +62,8 @@ class ModelOutput:
 
     # 各子模型中间结果
     TOW: float = 0.0               # 总有机物投入 (tBOD/年)
-    E_CH4_nit: float = 0.0         # 硝化N₂O排放 (kgN₂O/年)
-    E_CH4_denit: float = 0.0       # 反硝化N₂O排放 (kgN₂O/年)
+    E_N2O_nit: float = 0.0         # 硝化路径N₂O排放 (kgN₂O/年)
+    E_N2O_denit: float = 0.0       # 反硝化路径N₂O排放 (kgN₂O/年)
     E_aer_CO2eq: float = 0.0       # 曝气电力碳排放 (kgCO₂eq/年)
     W_DS_annual: float = 0.0       # 年干污泥量 (tDS/年)
 

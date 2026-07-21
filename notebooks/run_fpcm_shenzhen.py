@@ -19,6 +19,14 @@ import numpy as np
 from src.models import FPCM, ModelInput, ModelParams
 
 # ─────────────────────────────────────────────────────────────
+# 广东省电网排放因子（GEO_GUANGDONG 预设）
+# 来源：生态环境部《关于做好2022年度企业温室气体排放报告管理
+#       相关重点工作的通知》（2023年公告）
+# 0.5271 kgCO₂/kWh（vs 全国均值 0.5839，低约9.7%）
+# ─────────────────────────────────────────────────────────────
+EF_GRID_GUANGDONG = 0.5271   # kgCO₂/kWh
+
+# ─────────────────────────────────────────────────────────────
 # 一、月度汇总数据（46厂，2025.10–2026.03）
 # 数据来源：报告表1
 # ─────────────────────────────────────────────────────────────
@@ -126,7 +134,9 @@ def run_plant_analysis(name: str, design_scale_wan: float,
         **wq,
     )
 
-    model = FPCM()
+    # 重点厂站同样使用广东省 EF_grid
+    sz_params = ModelParams(EF_grid=EF_GRID_GUANGDONG)
+    model = FPCM(params=sz_params)
     out = model.run(inp)
 
     return {
@@ -153,7 +163,10 @@ def main():
     print("  数据周期：2025.10 – 2026.03（6个月）")
     print("=" * 65)
 
-    model = FPCM()
+    # 使用广东省电网排放因子（GEO_GUANGDONG = 0.5271 kgCO₂/kWh）
+    # 而非全国均值 0.5839，避免 Scope 2 系统性高估约 10.8%
+    sz_params = ModelParams(EF_grid=EF_GRID_GUANGDONG)
+    model = FPCM(params=sz_params)
     monthly_results = []
 
     print("\n【1】月度汇总碳排放（46厂整体）\n")

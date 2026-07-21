@@ -4,9 +4,12 @@
 采用对数正态观测模型（月度碳排放严格为正，CV约10%–25%）：
   log(y_m) = log(ŷ_m(θ, x_m)) + ε_m,  ε_m ~ N(0, σ²)
 
-先验分布：第四章表4-4中的15个可率定参数
+预测模型涵盖三范围排放：
+  ŷ_m = Scope1(CH₄+N₂O) + Scope2(电力) + Scope3(药剂+污泥，简化项)
 
-收敛诊断：R̂ < 1.05 且有效样本量 > 400
+先验分布：第四章表4-4中的15个可率定参数（含EF_disposal）
+
+收敛诊断：R̂ < 1.01 且有效样本量 > 400（Brooks & Gelman, 1998）
 
 用法示例：
     from src.models.bayesian_calibration import calibrate_fpcm, load_posterior_params
@@ -133,6 +136,11 @@ def calibrate_fpcm(
         # ── 污泥先验（Y_obs 用 Beta 分布）────────────────────
         Y_obs    = pm.Beta("Y_obs",         alpha=7.0, beta=10.0)
 
+        # ── 污泥处置排放因子（kgCO₂eq/tDS）────────────────────
+        # 先验均值 360（好氧堆肥封闭），范围 100-950 kgCO₂eq/tDS
+        EF_disposal = pm.Normal("EF_disposal", mu=360.0, sigma=80.0,
+                                 lower=80.0, upper=1000.0)
+
         # ── 残差超先验 ────────────────────────────────────────
         sigma    = pm.HalfNormal("sigma",   sigma=0.2)
 
@@ -188,8 +196,29 @@ def calibrate_fpcm(
             # Scope 2：电力
             e_scope2 = e_mon * EF_grid  # kgCO₂eq/月
 
-            # 月度总排放
-            e_total_month = e_ch4_co2eq + e_n2o_co2eq + e_scope2
+            # Scope 3 简化项（药剂 + 污泥处置）
+            # 药剂排放：使用台账数据（固定值，不参与率定）
+            if inp.PAC_monthly is not None:
+                e_pac = float(inp.PAC_monthly) * 12.0 * 1.60 / 12.0   # kgCO₂eq/月
+            else:
+                e_pac = 0.0
+            if inp.carbon_dose_monthly is not None:
+                e_carb = float(inp.carbon_dose_monthly) * 12.0 * 0.90 / 12.0
+            else:
+                e_carb = 0.0
+
+            # 污泥处置：年干污泥量由Y_obs估算，EF_disposal参与率定
+            # W_DS_month (tDS/月) = Y_obs × BOD_removed × Q / 1e6
+            BOD_removed_mg = max(0.0, cod_in - float(inp.COD_out)) * float(inp.E_total_monthly / max(inp.E_total_monthly, 1))
+            # 简化：月度干污泥 ≈ Y_obs × ΔBODmonth × Q × 30 × 1e-6
+            delta_BOD_month = max(0.0, float(inp.COD_in) - float(inp.COD_out)) * 0.48
+            W_DS_month = Y_obs * delta_BOD_month * q * 30 * 1e-6  # tDS/月
+            e_sludge = W_DS_month * EF_disposal                    # kgCO₂eq/月
+
+            e_scope3 = e_pac + e_carb + e_sludge
+
+            # 月度总排放（三范围完整）
+            e_total_month = e_ch4_co2eq + e_n2o_co2eq + e_scope2 + e_scope3
             preds.append(e_total_month)
 
         mu_pred = pt.stack(preds)
@@ -233,14 +262,15 @@ def diagnose(idata: "arviz.InferenceData") -> dict:
         "MCF", "B0", "f_boc", "theta_T",
         "EF_nit", "DO_opt", "f_max",
         "EF_denit_ref", "CN_crit", "k_g",
-        "EF_grid", "r_aer", "Y_obs", "sigma",
+        "EF_grid", "r_aer", "Y_obs", "EF_disposal", "sigma",
     ])
     r_hat_max = float(summary["r_hat"].max())
     ess_min = float(summary["ess_bulk"].min())
 
     n_div = int(idata.sample_stats["diverging"].sum())
 
-    passed = r_hat_max < 1.05 and ess_min > 400 and n_div == 0
+    # 收敛标准：R̂ < 1.01（Brooks & Gelman, 1998），ESS > 400（Gelman等, 2013）
+    passed = r_hat_max < 1.01 and ess_min > 400 and n_div == 0
     return {
         "r_hat_max": r_hat_max,
         "ess_min": ess_min,
@@ -289,4 +319,5 @@ def load_posterior_params(
         EF_grid=_get("EF_grid"),
         r_aer=_get("r_aer"),
         Y_obs=_get("Y_obs"),
+        EF_disposal=_get("EF_disposal"),
     )
