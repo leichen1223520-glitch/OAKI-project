@@ -1,0 +1,11 @@
+{
+  "equipment_files_parsed": 40,
+  "energy_records_parsed": 18,
+  "merged_rows": 48,
+  "matched_rows": 10,
+  "blower_power_extracted": 39,
+  "do_extracted": 0,
+  "mbr_plants": 1,
+  "drying_plants": 33,
+  "total_water_volume_10km3": 23357.22
+}

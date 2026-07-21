@@ -6,6 +6,45 @@
 
 ---
 
+## [v5.0.0] — 2026-07-21 （Phase 8：工程完善与全面补全）
+
+### 新增（核心功能）
+- **`src/preprocessing/docx_parser.py`**：解析41座设施个厂资料 (.docx)，提取鼓风机/进水泵功率规格、DO设定、脱水机类型、污泥含水率等12项设备参数；鼓风机功率提取率97.5%（39/40）
+- **`src/preprocessing/energy_stats_parser.py`**：解析深圳46厂能耗药耗统计报告，提取18条厂站明细（设计规模、工艺类型、吨水电耗、三种药耗单耗）
+- **`src/preprocessing/pipeline.py`**：端到端数据预处理管道（Step 1-4），输出 `facilities_equipment`、`facilities_energy_stats`、`facilities_merged` 三套 CSV/JSON 数据集
+- **`src/preprocessing/__init__.py`**：预处理模块公共接口（之前为空文件）
+- **`src/utils/carbon_factors.py`**：集中管理所有排放因子查询（31省电网EF、14种药剂EF、7种污泥处置EF、GWP AR6常量）
+- **`src/utils/validators.py`**：模型输入参数合理性校验（范围检查 + 衍生约束 + 运行参数警告）
+- **`src/utils/report_generator.py`**：计算结果格式化输出（文字报告 / CSV批量 / 汇总统计）
+- **`src/utils/__init__.py`**：工具模块公共接口（之前为空文件）
+- **`tests/test_models.py`**：模型核心逻辑单元测试（45个测试，覆盖全部6个子模型+集成框架）
+- **`tests/test_preprocessing.py`**：预处理模块单元测试（17个测试）
+- **`tests/conftest.py`**：pytest 全局配置
+- **`tests/__init__.py`**：测试包初始化
+- **`notebooks/generate_missing_figures.py`**：生成3张论文缺失图表（技术路线图、AAO流程图、PCA双标图）
+- **`results/figures/fig1_1_tech_roadmap.png`**：技术路线图（第一章）
+- **`results/figures/fig2_2_aao_flowchart.png`**：AAO工艺流程与碳排放边界示意图（第二章）
+- **`results/figures/fig3_1_pca_parameter_selection.png`**：参数筛选PCA双标图（第三章）
+- **`docs/phase_logs/phase_08_log.md`**：Phase 8 工作日志
+
+### 新增（数据处理输出）
+- `data/processed/facilities_equipment.{csv,json}`：40座厂设备特征结构化数据（12字段）
+- `data/processed/facilities_energy_stats.{csv,json}`：46厂能耗药耗统计（18条记录）
+- `data/processed/facilities_merged.{csv,json}`：合并数据集（48条，10条双向匹配）
+- `data/processed/pipeline_summary.json`：数据管道摘要统计
+
+### 合并
+- `claude/review-and-improvements-20260721` → `master`（Phase 7 8项缺陷修复正式进入主线）
+
+### 测试
+- **首次建立测试套件**：54个单元测试全部通过，覆盖核心模型逻辑、输入验证、工具函数、数据解析
+
+### 已知限制（TODO）
+- docx中好氧区DO数据存储于Table 2（结构化表格），当前文本解析器未能提取（0/40）；需专项Table结构解析
+- 能耗合并匹配率10/40（能耗报告仅列出高/低消耗厂站，非全量明细）
+
+---
+
 ## [v4.0.0] — 2026-07-21 （Phase 7：代码审查与数据核查）
 
 ### 修复（Critical Bugs）
