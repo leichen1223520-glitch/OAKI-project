@@ -1,39 +1,91 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-.venv/
-venv/
-env/
-*.egg
-
-# Jupyter
-.ipynb_checkpoints/
-
-# 数据（原始数据不上传，处理后数据视情况）
-data/raw/*.csv
-data/raw/*.xlsx
-data/raw/*.xls
-data/raw/*.json
-# 保留目录结构
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-
-# 环境变量
+# ===== 敏感数据（绝不上传） =====
+data/raw/
+data/interim/*_real*
+data/interim/*_sensitive*
+secrets/
 .env
 *.env
+config/secrets.yaml
 
-# 系统文件
+# ===== 大型文件（使用LFS或Zenodo） =====
+*.pt
+*.pth
+*.pkl
+*.h5
+*.hdf5
+data/processed/bsm2g/*.parquet
+data/processed/bsm2g/*.csv
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ===== 虚拟环境 =====
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+oaki_env/
+
+# ===== Jupyter =====
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# ===== 系统文件 =====
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# IDE
+# ===== IDE =====
 .vscode/
 .idea/
 *.swp
+*.swo
 
-# 临时文件
+# ===== 测试与覆盖率 =====
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ===== MATLAB（BSM2G） =====
+*.mat.bak
+*.slxc
+slprj/
+
+# ===== 临时文件 =====
 *.tmp
 *.log
+*.bak

@@ -1,0 +1,51 @@
+变量ID,变量名称（中文）,变量名称（英文）,来源系统,数据层级,单位,频率,点位/位置,正常范围,缺失编码,论文章节,OAKI模块,BSM2G变量名,备注
+# ===== BSM2G仿真变量（L1：仿真数据）=====
+BSM_IN_Q,进水流量,Influent flow rate,BSM2G,[仿真],m³/d,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,Q_in,BSM2G标准输入
+BSM_IN_COD,进水COD,Influent COD,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,COD_in,
+BSM_IN_TN,进水总氮,Influent total nitrogen,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,TN_in,
+BSM_IN_NH4,进水氨氮,Influent ammonia,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,NH4_in,
+BSM_IN_TP,进水总磷,Influent total phosphorus,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,TP_in,
+BSM_IN_BOD,进水BOD,Influent BOD,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,BOD5_in,
+BSM_IN_TSS,进水悬浮固体,Influent TSS,BSM2G,[仿真],mg/L,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,TSS_in,
+BSM_OX_DO1,好氧区1 DO,DO zone 1,BSM2G,[仿真],mg/L,15min,好氧区1,0-8 mg/L,-9999 or NaN,第3章,OAKI-PL输入,DO_1,
+BSM_OX_DO2,好氧区2 DO,DO zone 2,BSM2G,[仿真],mg/L,15min,好氧区2,0-8 mg/L,-9999 or NaN,第3章,OAKI-PL输入,DO_2,
+BSM_OX_DO3,好氧区3 DO,DO zone 3,BSM2G,[仿真],mg/L,15min,好氧区3,0-8 mg/L,-9999 or NaN,第3章,OAKI-PL输入,DO_3,
+BSM_CTRL_IR,内回流比,Internal recycle ratio,BSM2G,[仿真],%,15min,好氧→缺氧,-9999 or NaN,第3章,OAKI-PL输入,Q_int,
+BSM_CTRL_RAS,污泥回流比,RAS ratio,BSM2G,[仿真],%,15min,二沉→厌氧,-9999 or NaN,第3章,OAKI-PL输入,Q_ras,
+BSM_CTRL_SRT,泥龄,Sludge retention time,BSM2G,[仿真],day,15min,全厂,-9999 or NaN,第3章,OAKI-PL输入,SRT,
+BSM_SETT_MLSS,MLSS,Mixed liquor suspended solids,BSM2G,[仿真],mg/L,15min,二沉池,-9999 or NaN,第3章,OAKI-PL输入,MLSS,
+BSM_T,水温,Water temperature,BSM2G,[仿真],℃,15min,进水口,-9999 or NaN,第3章,OAKI-PL输入,T_water,
+BSM_OUT_Q,出水流量,Effluent flow rate,BSM2G,[仿真],m³/d,15min,出水口,-9999 or NaN,第3章,OAKI-PL输入,Q_out,
+# ===== BSM2G输出目标变量 =====
+BSM_OUT_NH4,出水氨氮,Effluent ammonia,BSM2G,[仿真],mg/L,15min,出水口,≤5 mg/L,-9999 or NaN,第3/4章,OAKI-PL目标,NH4_e,
+BSM_OUT_TN,出水总氮,Effluent total nitrogen,BSM2G,[仿真],mg/L,15min,出水口,≤15 mg/L,-9999 or NaN,第3/4章,OAKI-PL目标,TN_e,
+BSM_OUT_TP,出水总磷,Effluent total phosphorus,BSM2G,[仿真],mg/L,15min,出水口,≤0.5 mg/L,-9999 or NaN,第3/4章,OAKI-PL目标,TP_e,
+BSM_ENERGY,吨水能耗,Energy consumption per m³,BSM2G,[仿真],kWh/m³,15min,全厂,-9999 or NaN,第3/4章,OAKI-PL目标,E_spec,
+BSM_N2O,N₂O排放强度,N₂O emission intensity,BSM2G,[仿真],gN/m³,15min,全厂（计算值）,-9999 or NaN,第3/4章,OAKI-PL目标,N2O_ef,标注[仿真]—非真实通量
+BSM_CH4,CH₄排放强度,CH₄ emission intensity,BSM2G,[仿真],gCH₄/m³,15min,全厂（计算值）,-9999 or NaN,第3/4章,OAKI-PL目标,CH4_ef,标注[仿真]—非真实通量
+# ===== 46厂月度数据（L3：真实活动数据） =====
+PLANT_ID,水厂ID（哈希）,Plant ID (hashed),深圳市政,[真实活动数据],—,月度,全厂,—,NA,第5章,活动数据分析,,SHA-256前8位
+PLANT_DATE,数据月份,Data month,深圳市政,[真实活动数据],YYYY-MM,月度,全厂,—,NA,第5章,活动数据分析,,
+PLANT_Q,月度处理水量,Monthly treated volume,深圳市政,[真实活动数据],万m³/月,月度,全厂,—,-999,第5章,活动数据分析,,
+PLANT_COD_IN,月均进水COD,Monthly mean influent COD,深圳市政,[真实活动数据],mg/L,月度,进水口,—,-999,第5章,活动数据分析,,
+PLANT_NH4_IN,月均进水氨氮,Monthly mean influent NH4,深圳市政,[真实活动数据],mg/L,月度,进水口,—,-999,第5章,活动数据分析,,
+PLANT_TN_IN,月均进水TN,Monthly mean influent TN,深圳市政,[真实活动数据],mg/L,月度,进水口,—,-999,第5章,活动数据分析,,
+PLANT_TP_IN,月均进水TP,Monthly mean influent TP,深圳市政,[真实活动数据],mg/L,月度,进水口,—,-999,第5章,活动数据分析,,
+PLANT_COD_OUT,月均出水COD,Monthly mean effluent COD,深圳市政,[真实活动数据],mg/L,月度,出水口,—,-999,第5章,活动数据分析,,
+PLANT_NH4_OUT,月均出水氨氮,Monthly mean effluent NH4,深圳市政,[真实活动数据],mg/L,月度,出水口,—,-999,第5章,活动数据分析,,
+PLANT_TN_OUT,月均出水TN,Monthly mean effluent TN,深圳市政,[真实活动数据],mg/L,月度,出水口,—,-999,第5章,活动数据分析,,
+PLANT_TP_OUT,月均出水TP,Monthly mean effluent TP,深圳市政,[真实活动数据],mg/L,月度,出水口,—,-999,第5章,活动数据分析,,
+PLANT_ENERGY,吨水综合能耗,Unit energy consumption,深圳市政,[真实活动数据],kWh/m³,月度,全厂,—,-999,第5章,OAKI-Carbon间接,,
+PLANT_CHEM,吨水药耗,Chemical dosing per m³,深圳市政,[真实活动数据],元/m³ 或 kg/m³,月度,全厂,—,-999,第5章,OAKI-Carbon间接,,
+PLANT_SLUDGE,吨水污泥产量,Sludge generation per m³,深圳市政,[真实活动数据],tDS/万m³,月度,全厂,—,-999,第5章,OAKI-Carbon间接,,
+PLANT_PROCESS,工艺类型,Process type,深圳市政,[真实活动数据],—,固定,全厂,—,NA,第5章,活动数据分析,,AAO/A²O/Bardenpho等
+PLANT_SCALE,设计规模,Design capacity,深圳市政,[真实活动数据],万m³/d,固定,全厂,—,-999,第5章,活动数据分析,,
+# ===== 高频过程数据（L3：真实过程数据，待确认变量） =====
+HF_DATE,时间戳,Timestamp,单厂SCADA,[真实活动数据],YYYY-MM-DD HH:MM:SS,2小时,全厂,—,NA,第3/4章,OAKI-PL输入,,待用户确认变量
+HF_DO,好氧区DO（高频）,DO aerobic zone (HF),单厂SCADA,[真实活动数据],mg/L,2小时,好氧区,—,-999,第3/4章,OAKI-PL输入,,待用户确认
+HF_NH4,进出水氨氮（高频）,NH4 (HF),单厂在线仪,[真实活动数据],mg/L,2小时,进/出水口,—,-999,第3/4章,OAKI-PL输入,,待用户确认
+# ===== GHG真值（阶段B，计划获取） =====
+GHG_N2O_FLUX,N₂O通量,N₂O flux,现场监测,[真实GHG],gN₂O/m²/h,5-15min,好氧区水面,—,-9999,第7章,OAKI-Cal,—,阶段B
+GHG_CH4_FLUX,CH₄通量,CH₄ flux,现场监测,[真实GHG],gCH₄/m²/h,5-15min,各功能区,—,-9999,第7章,OAKI-Cal,—,阶段B
+GHG_N2O_CONC,N₂O气相浓度,N₂O gas concentration,现场监测,[真实GHG],ppm,5-15min,排气口,—,-9999,第7章,OAKI-Cal,—,阶段B需换算为通量
+GHG_CH4_CONC,CH₄气相浓度,CH₄ gas concentration,现场监测,[真实GHG],ppm,5-15min,排气口,—,-9999,第7章,OAKI-Cal,—,阶段B需换算为通量

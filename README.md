@@ -1,31 +1,49 @@
-# AAO工艺污水处理厂轻量化数据下的全厂碳排放模型构建研究
+# OAKI Project
 
-> **OAKI Project** — Carbon Emission Modeling for AAO Wastewater Treatment Plants under Lightweight Data
+## 稀缺GHG真值条件下融合机理仿真数据与真实运行数据的AAO污水处理厂全厂碳排放建模研究
+
+**Carbon Emission Modeling for AAO Wastewater Treatment Plants Integrating Mechanistic Simulation Data and Real Operational Data under Scarce Greenhouse Gas Ground Truth**
+
+> **版本**：V2.0（2026-07-25，OAKI框架重构版）  
+> **状态**：阶段0完成（仓库审计与重构）；阶段A进行中
 
 ---
 
 ## 📌 研究概述
 
-本研究聚焦于 **AAO（厌氧-缺氧-好氧）工艺污水处理厂** 在轻量化数据条件下的全厂碳排放模型构建，探索在监测数据有限的实际场景中，如何建立准确、可靠的碳排放核算与预测体系。
+本研究围绕以下中心科学问题展开：
 
-### 核心问题
-1. 如何在监测数据稀缺的条件下，构建完整的全厂碳排放模型？
-2. AAO工艺各单元（厌氧池、缺氧池、好氧池、二沉池、污泥处理）的碳排放贡献如何量化？
-3. 轻量化数据驱动模型与全量监测模型的精度差异如何评估？
+> **在GHG真值稀缺、运行数据标签不完整、不同污水厂运行条件存在域差异的情况下，如何融合机理仿真数据（BSM2G）、ASM知识和多时间尺度运行数据，建立可迁移、可校准、可解释并能够输出不确定性的AAO污水处理厂全厂碳排放模型？**
+
+### 三个核心研究问题
+
+- **RQ1**：无GHG标签的长期运行数据能否通过部分标签多任务学习提升GHG预测精度？
+- **RQ2**：BSM2G和ASM提供的机理先验如何迁移到目标域，并控制负迁移？
+- **RQ3**：新厂需要多少天GHG真值才能完成可靠概率校准？
+
+### 三项核心贡献
+
+| 贡献 | 方法 | 阶段A证据 |
+|------|------|---------|
+| **OAKI-PL** | 部分标签多任务过程状态学习 | BSM2G仿真+人工掩蔽实验 |
+| **OAKI-Transfer** | 分层ASM参数迁移+厂级Adapter | 仿真域虚拟跨厂实验 |
+| **OAKI-Cal/Carbon** | 概率GHG校准+全厂碳排放核算 | 仿真掩蔽实验+46厂活动数据 |
 
 ---
 
-## 🏗️ 研究阶段规划
+## ⚠️ 证据边界声明
 
-| 阶段 | 名称 | 内容 | 状态 |
-|------|------|------|------|
-| Phase 1 | 项目初始化与框架搭建 | 仓库结构、研究计划、版本控制规范 | ✅ 完成 |
-| Phase 2 | 论文框架与各章节初稿（v1.0）| 8章节初稿，35条参考文献，~35,000字 | ✅ 完成 |
-| Phase 3 | 论文全面深化重写（v2.0）| 机理推导、具体数字、双语摘要，~60,000字 | ✅ 完成 |
-| Phase 4 | 文献深化 + 模型预设（v3.0）| 150篇文献、文献综述、省域EF预设 | ✅ 完成 |
-| Phase 5 | Python代码实现 | FPCM v3.0全套子模型（M1–M6）+ 贝叶斯率定 | ✅ 完成 |
-| Phase 6 | 案例数据分析与验证 | 深圳46厂实际数据运行 + 论文配图 | ✅ 完成 |
-| Phase 7 | 代码审查与数据核查 | 全面审查、数据一致性修复、策略改进 | 🔄 进行中 |
+本项目严格区分以下数据层级：
+
+| 标识 | 描述 | 允许的声明强度 |
+|------|------|--------------|
+| `[仿真]` | BSM2G机理仿真输出 | "在仿真条件下有效" |
+| `[文献先验]` | 基于文献参数范围 | "与文献报道范围一致" |
+| `[真实活动数据]` | 46厂月度数据（不含GHG） | "在活动数据层面有效" |
+| `[真实GHG]` | 实测N₂O/CH₄通量（阶段B） | "在现场观测条件下验证" |
+| `[小试]` | 实验室动力学参数（阶段B） | "在小试批次中可辨识" |
+
+**禁止**：将BSM2G输出的GHG写成现场真值；将虚拟水厂写成两个真实水厂。
 
 ---
 
@@ -33,51 +51,94 @@
 
 ```
 OAKI-project/
-├── README.md                    # 项目总览
-├── CHANGELOG.md                 # 版本变更日志
-├── docs/
-│   ├── research_plan.md         # 详细研究计划
-│   ├── literature/              # 文献笔记
-│   └── phase_logs/              # 各阶段工作日志
+├── README.md                         # 项目总览
+├── DATA_POLICY.md                    # 数据保密与版本策略
+├── environment.yml                   # Conda环境（Python+ML）
+├── requirements.txt                  # pip依赖
+├── configs/                          # 实验配置文件
 ├── data/
-│   ├── raw/                     # 原始数据
-│   ├── processed/               # 处理后数据
-│   └── schema/                  # 数据字典
+│   ├── raw/                          # 原始数据（不提交敏感数据）
+│   ├── interim/                      # 中间处理数据
+│   ├── processed/
+│   │   └── bsm2g/                    # BSM2G仿真数据集（BLOCKED，待获取BSM2G）
+│   └── schema/                       # 数据字典
 ├── src/
-│   ├── preprocessing/           # 数据预处理模块
-│   ├── models/                  # 碳排放子模型
-│   └── utils/                   # 工具函数
-├── notebooks/                   # Jupyter分析笔记本
-├── results/                     # 模型结果与图表
-└── tests/                       # 单元测试
+│   ├── data/                         # 数据预处理
+│   ├── simulation/                   # BSM2G接口与数据导出
+│   ├── models/                       # OAKI-PL/Transfer/Cal模型
+│   ├── asm/                          # ASM参数管理与约束
+│   ├── calibration/                  # 概率校准模块
+│   ├── carbon/                       # 全厂碳核算（含原FPCM M1-M6）
+│   └── evaluation/                   # 评估指标与可视化
+├── scripts/                          # 运行脚本
+├── tests/                            # 单元测试
+├── results/
+│   ├── models/                       # 模型权重
+│   ├── tables/                       # 结果表格
+│   ├── figures/                      # 图表
+│   └── manifests/                    # 结果清单
+├── docs/
+│   ├── thesis/                       # 论文各章草稿
+│   ├── design/                       # 研究设计文档
+│   │   ├── research_design_v2.md     # 博士论文研究设计V2.0
+│   │   ├── thesis_outline_v2.md      # 论文大纲V2.0
+│   │   ├── task_mapping.csv          # 修订后任务清单
+│   │   └── claim_evidence_matrix.csv # 研究问题-方法-证据映射矩阵
+│   ├── reviews/
+│   │   └── taskbook_audit.md         # 任务书完备性审查报告
+│   ├── datasets/                     # 数据集卡
+│   ├── protocols/                    # 实验协议
+│   └── logs/
+│       └── template.md               # 阶段日志模板
+├── paper/                            # 论文草稿（原FPCM框架，待重构）
+└── releases/                         # 发布包
 ```
 
 ---
 
-## 🔬 研究背景
+## 🚦 当前状态
 
-AAO工艺是目前应用最广泛的生物脱氮除磷污水处理工艺之一。其碳排放来源包括：
-
-- **直接排放**：处理过程中产生的 CH₄、N₂O 等温室气体
-- **间接排放**：曝气能耗、药剂投加等对应的电力/化石能源消耗
-- **污泥处理**：污泥厌氧消化、脱水、焚烧等环节
-
-在实际工程中，完整的在线监测系统成本高、维护难，**轻量化数据**（仅依赖常规检测指标如COD、NH₃-N、TN、TP、SS、DO等）的碳排放模型具有重要工程实用价值。
-
----
-
-## 🔗 相关链接
-
-- GitHub仓库：[leichen1223520-glitch/OAKI-project](https://github.com/leichen1223520-glitch/OAKI-project)
-- 变更日志：[CHANGELOG.md](./CHANGELOG.md)
-- 研究计划：[docs/research_plan.md](./docs/research_plan.md)
+| 阶段 | 名称 | 状态 |
+|------|------|------|
+| 阶段0 | 仓库审计与重构 | ✅ IN_PROGRESS |
+| 阶段1 | 任务书审阅与研究设计重构 | ✅ IN_PROGRESS |
+| 阶段2 | 系统文献调研 | ⏳ 待开始 |
+| **BSM2G安装** | **关键阻塞项** | **⛔ BLOCKED（需用户确认MATLAB/BSM2G）** |
+| 阶段3 | BSM2G仿真与数据生成 | ⛔ BLOCKED |
+| 阶段4 | 仿真历史数据与标签掩蔽 | ⛔ BLOCKED |
+| 阶段5 | 基线模型 | ⛔ BLOCKED（依赖BSM2G数据） |
+| 阶段5A | 46厂活动数据分析 | ✅ 可立即开始 |
+| 阶段6+ | OAKI-PL/Transfer/Cal | ⛔ BLOCKED（依赖BSM2G） |
 
 ---
 
-## 📝 版本控制规范
+## 🔑 需要用户提供的关键输入
 
-每完成一个研究阶段，均在 `docs/phase_logs/` 下生成对应日志文件，并打上 Git Tag（如 `phase-1-complete`），确保研究过程完全可追溯。
+1. **BSM2G**：MATLAB版本？BSM2G获取渠道（官方网站/文献作者/已有许可证）？
+2. **高频数据**：单厂2小时过程数据的变量清单、时间段和文件位置
+3. **代表厂**：是否已有意向的两座深度监测厂？
+4. **GHG监测计划**：预计何时可以开展现场N₂O/CH₄监测？
 
 ---
 
-*最后更新：2026-07-21（Phase 7 代码审查与数据核查）*
+## 📝 版本历史
+
+| 版本 | 日期 | 内容 |
+|------|------|------|
+| v0.1 | 2026-07-25 | 阶段0完成：仓库审计、OAKI框架重构、任务书审查报告 |
+| v0.0 | 2026-07-21 | 原FPCM v3.0草稿（8章，轻量化数据框架） |
+
+---
+
+## 🔗 关键文档
+
+- [任务书完备性审查报告](docs/reviews/taskbook_audit.md)
+- [博士论文研究设计V2.0](docs/design/research_design_v2.md)
+- [论文大纲V2.0](docs/design/thesis_outline_v2.md)
+- [修订后任务清单](docs/design/task_mapping.csv)
+- [研究问题-证据映射矩阵](docs/design/claim_evidence_matrix.csv)
+- [数据保密策略](DATA_POLICY.md)
+
+---
+
+*最后更新：2026-07-25（阶段0：仓库审计与OAKI框架重构）*

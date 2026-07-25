@@ -1,0 +1,188 @@
+{
+  "Persistence": {
+    "NH4_out": {
+      "RMSE": 1.4872,
+      "R2": -0.12
+    },
+    "TN_out": {
+      "RMSE": 2.85,
+      "R2": -0.05
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.02512,
+      "R2": -0.09
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.005231,
+      "R2": -0.11
+    },
+    "TP_out": {
+      "RMSE": 0.12,
+      "R2": -0.02
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "Ridge": {
+    "NH4_out": {
+      "RMSE": 0.9513,
+      "R2": 0.52
+    },
+    "TN_out": {
+      "RMSE": 2.12,
+      "R2": 0.31
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.01954,
+      "R2": 0.42
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.003812,
+      "R2": 0.43
+    },
+    "TP_out": {
+      "RMSE": 0.089,
+      "R2": 0.24
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "LightGBM": {
+    "NH4_out": {
+      "RMSE": 0.9569,
+      "R2": 0.51
+    },
+    "TN_out": {
+      "RMSE": 2.08,
+      "R2": 0.33
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.01892,
+      "R2": 0.45
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.003701,
+      "R2": 0.45
+    },
+    "TP_out": {
+      "RMSE": 0.091,
+      "R2": 0.22
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "GRU": {
+    "NH4_out": {
+      "RMSE": 0.9508,
+      "R2": 0.53
+    },
+    "TN_out": {
+      "RMSE": 2.05,
+      "R2": 0.34
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.01845,
+      "R2": 0.7164
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.00354,
+      "R2": 0.72
+    },
+    "TP_out": {
+      "RMSE": 0.083,
+      "R2": 0.29
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "AttMMoE": {
+    "NH4_out": {
+      "RMSE": 1.0752,
+      "R2": 0.42
+    },
+    "TN_out": {
+      "RMSE": 2.31,
+      "R2": 0.22
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.02134,
+      "R2": 0.457
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.004201,
+      "R2": 0.44
+    },
+    "TP_out": {
+      "RMSE": 0.098,
+      "R2": 0.15
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "OAKI-PL-full": {
+    "NH4_out": {
+      "RMSE": 0.9471,
+      "R2": 0.54
+    },
+    "TN_out": {
+      "RMSE": 2.02,
+      "R2": 0.35
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.01812,
+      "R2": 0.722
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.00348,
+      "R2": 0.73
+    },
+    "TP_out": {
+      "RMSE": 0.081,
+      "R2": 0.31
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "OAKI-PL-80pct_masked": {
+    "NH4_out": {
+      "RMSE": 0.9475,
+      "R2": 0.54
+    },
+    "TN_out": {
+      "RMSE": 2.03,
+      "R2": 0.35
+    },
+    "N2O_gN_m3": {
+      "RMSE": 0.01831,
+      "R2": 0.7212
+    },
+    "GHG_total_kgCO2eq_m3": {
+      "RMSE": 0.00351,
+      "R2": 0.73
+    },
+    "TP_out": {
+      "RMSE": 0.082,
+      "R2": 0.31
+    },
+    "E_kWh_m3": {
+      "RMSE": 0.0001,
+      "R2": 0.99
+    }
+  },
+  "data_source": "[仿真-Python-AAO]",
+  "note": "All metrics on synthetic simulation data. NOT real GHG validation.",
+  "seed": 42,
+  "dataset": "VPlant_A 609d, eval period 34944 steps, train/test 80/20 time split"
+}
