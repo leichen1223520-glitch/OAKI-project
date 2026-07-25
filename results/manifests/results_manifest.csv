@@ -1,0 +1,8 @@
+结果ID,类型,文件名,实验编号,描述,模型版本,数据版本,随机种子,Git提交号,主要指标,数据层级,状态,日期
+# ===== 说明 =====
+# 每次产生新的图表、表格、模型权重时，在本文件登记
+# 类型：figure / table / model / dataset / report
+# 状态：active（当前使用）/ superseded（被新版本替代）/ draft（草稿）
+# ===== 示例格式 =====
+# R001,table,baseline_comparison_v1_bsm2g-v1_seed42.csv,T035-T039,15种基线在BSM2G测试集上的性能,baseline-v1,bsm2g-v1,42,<commit>,N2O_RMSE=X,仿真,draft,待BSM2G数据
+# R002,figure,oaki_pl_architecture_v1.pdf,T040,OAKI-PL网络结构图（无数据依赖）,oaki-pl-v1,—,—,<commit>,—,—,active,2026-07-25

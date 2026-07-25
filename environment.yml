@@ -1,0 +1,57 @@
+name: oaki
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  # 数据处理
+  - numpy>=1.24.0
+  - pandas>=2.0.0
+  - scipy>=1.11.0
+  - pyarrow>=12.0.0        # Parquet格式支持
+  - openpyxl>=3.1.0        # Excel读取
+  # 机器学习（传统）
+  - scikit-learn>=1.3.0
+  - xgboost>=2.0.0
+  - lightgbm>=4.0.0        # 新增：LightGBM基线
+  # 深度学习
+  - pytorch>=2.0.0
+  - torchvision
+  # 可视化
+  - matplotlib>=3.7.0
+  - seaborn>=0.12.0
+  - plotly>=5.15.0
+  # 统计
+  - statsmodels>=0.14.0
+  # Jupyter
+  - jupyter>=1.0.0
+  - notebook>=7.0.0
+  - ipywidgets
+  # pip管理的包
+  - pip:
+    # 不确定性分析
+    - SALib>=1.4.7          # 灵敏度分析（Sobol/Morris）
+    - pymc>=5.0.0           # 贝叶斯推断（NUTS-MCMC）
+    # 多任务学习相关
+    - einops>=0.7.0         # 张量操作
+    # 概率预测
+    - properscoring>=0.1.0  # CRPS等概率评分
+    # 超参数优化
+    - optuna>=3.3.0
+    # 工具
+    - pyyaml>=6.0
+    - python-dotenv>=1.0.0
+    - tqdm>=4.65.0
+    - rich>=13.0.0          # 进度显示
+    # 测试
+    - pytest>=7.4.0
+    - pytest-cov>=4.1.0
+    # 文档
+    - mkdocs>=1.5.0
+
+# 注意：
+# - BSM2G需要单独安装MATLAB/Simulink（版本需用户确认）
+# - PyMC用于贝叶斯参数校准（OAKI-Cal）
+# - properscoring用于CRPS等概率预测评分
+# - einops用于OAKI-PL的多时间尺度注意力计算
